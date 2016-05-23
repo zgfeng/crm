@@ -1,0 +1,46 @@
+@charset "UTF-8";
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei UI", "Microsoft YaHei", SimHei, "\5B8B\4F53", simsun, sans-serif;
+}
+
+.layout-north {
+    height: 80px;
+    background-color: #333;
+    overflow: hidden;
+}
+.layout-north .logo {
+    width: 300px;
+    height: 80px;
+    float: left;
+}
+.layout-north .info {
+    width: 300px;
+    height: 80px;
+    line-height: 80px;
+    text-align: right;
+    padding: 0 20px 0 0;
+    color: #fff;
+    float: right;
+}
+
+.layout-west {
+    width: 180px; }
+.layout-center {
+    overflow: hidden;
+}
+
+.layout-south {
+    height: 30px;
+    padding: 10px 0 0 0;
+    text-align: center;
+}
+.tree {
+    margin:10px 15px;
+}
+.tree-node-selected {
+    background:#999;
+    border-radius:4px;
+}
+.tree-node-hover {
+    border-radius:4px;
+}
