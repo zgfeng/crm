@@ -44,3 +44,10 @@ body {
 .tree-node-hover {
     border-radius:4px;
 }
+a.tabs-inner {
+    color:#666 !important;
+}
+.menu-active {
+    background: #999;
+    border: none;
+}
