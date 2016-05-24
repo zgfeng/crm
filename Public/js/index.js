@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2016/5/23.
+ * Created by zgfeng on 2016/5/23.
  */
 //内容切换选项卡
 $('#tabs').tabs({
