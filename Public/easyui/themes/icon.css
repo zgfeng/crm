@@ -115,3 +115,9 @@
 .icon-cross{
 	background:url('icons/cross.png') no-repeat center center;
 }
+.icon-accept{
+	background:url('icons/accept.png') no-repeat center center;
+}
+.icon-newadd{
+	background:url('icons/newadd.png') no-repeat center center;
+}

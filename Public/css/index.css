@@ -51,3 +51,61 @@ a.tabs-inner {
     background: #999;
     border: none;
 }
+.datagrid-row-selected {
+    background:#999 !important;
+}
+.easyui-dialog {
+    padding: 15px 0 0 0;
+}
+.panel-title {
+    font-size: 14px;
+    font-weight: normal;
+}
+.dialog-button .l-btn-large .l-btn-text {
+    font-size: 14px;
+    padding: 0 10px 0 0;
+    height: 35px;
+    line-height: 35px;
+    color: #666;
+    margin-left: 32px !important;
+}
+.dialog-button .l-btn-small .l-btn-text {
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+}
+.textbox-text {
+    background-color: #fff;
+}
+.tooltip-content {
+    font-size: 14px !important;
+    color: #333;
+}
+.form-label {
+    padding: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+.form-table tr:hover {
+    background-color: #f3f3f3;
+}
+.form-table > tbody > tr > td {
+    padding: 5px 0;
+}
+.form-table td.label {
+    min-width: 100px;
+    text-align: right;
+    font-size:14px;
+    color: #666;
+}
+.form-table td.input {
+    width: 290px;
+    text-align: left;
+    font-size:14px;
+    color: #666;
+}

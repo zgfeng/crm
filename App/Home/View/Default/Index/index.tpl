@@ -39,7 +39,7 @@
     ©2010-2016 ZGFeng技术. Powered by ThinkPHP and EasyUI.
 </div>
 
-{*右键菜单*}
+<!--右键菜单-->
 <div id="menu" class="easyui-menu">
     <div class="closecur">关闭</div>
     <div class="closeall">关闭所有</div>
