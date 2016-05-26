@@ -42,4 +42,28 @@ class PostController extends Controller
         }
     }
 
+    //根据ID获取一条可修改的记录
+    public function getOne()
+    {
+        if (IS_AJAX)
+        {
+            $Post = D('Post');
+            $this->ajaxReturn($Post->getOne(I('post.id')));
+        } else {
+            $this->error('非法操作！');
+        }
+    }
+
+    //根据ID修改一条记录
+    public function update()
+    {
+        if (IS_AJAX)
+        {
+            $Post = D('Post');
+            echo $Post->update(I('post.id'),I('post.name'));
+        } else {
+            $this->error('非法操作！');
+        }
+    }
+
 }

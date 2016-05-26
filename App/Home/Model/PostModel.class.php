@@ -56,4 +56,32 @@ class PostModel extends Model
         }
     }
 
+    //根据ID获取一条记录
+    public function getOne($id)
+    {
+        $map['id'] = $id;
+        return $this->field('id,name')->where($map)->find();
+    }
+
+    //根据ID修改一条记录
+    public function update($id,$name)
+    {
+        $updateData = array(
+            'id'=>$id,
+            'name'=>$name
+        );
+
+        if ($this->create($updateData))
+        {
+            $id = $this->save($updateData);
+            return $id ? $id : 0;
+        } else {
+            if ($this->getError() == '职位名称被占用')
+            {
+                return -1;
+            }
+            return $this->getError();
+        }
+    }
+
 }
