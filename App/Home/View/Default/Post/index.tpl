@@ -6,6 +6,9 @@
     <div>
         <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newadd" onclick="postTool.add()">新增</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newedit" onclick="postTool.edit()">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="postTool.remove()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-reload" onclick="postTool.reload()">刷新表</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-redo" onclick="postTool.redo()">取消选项</a>
     </div>
 </form>
 

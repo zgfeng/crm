@@ -234,6 +234,62 @@ postTool = {
         } else {
             $.messager.alert('操作警告','编辑记录必须只能选定一条数据！','warning');
         }
+    },
+    remove  : function ()
+    {
+        var rows = post.datagrid('getSelections');
+        if (rows.length > 0)
+        {
+            $.messager.confirm('确认操作','你真的要删除所选的 <strong>' + rows.length + '</strong> 记录吗？',function (flag){
+                if (flag)
+                {
+                    var ids = [];
+                    for (var i = 0; i < rows.length; i++){
+                        ids.push(rows[i].id);
+                    }
+                    $.ajax({
+                        url         : ThinkPHP['MODULE'] + '/Post/remove',
+                        type        : 'POST',
+                        data        : {
+                            id : ids.join(',')
+                        },
+                        beforeSend  : function ()
+                        {
+                            $.messager.progress({
+                                text : '正在处理中...'
+                            })
+                            //post.datagrid('loading');
+                        },
+                        success     : function (data)
+                        {
+                            $.messager.progress('close');
+                            //post.datagrid('loaded');
+                            if (data)
+                            {
+                                post.datagrid('reload');
+                                $.messager.show({
+                                    title : '操作提醒',
+                                    msg   : data + '条数据被成功删除！'
+                                });
+                            } else {
+                                $.messager.alert('删除失败','没有删除任何数据！','warning');
+                            }
+                        }
+                    });
+                }
+
+            });
+        } else {
+            $.messager.alert('操作警告','删除记录必须一条或以上的数据！','warning');
+        }
+    },
+    reload  : function ()
+    {
+        post.datagrid('reload');
+    },
+    redo    : function ()
+    {
+        post.datagrid('unselectAll');
     }
 };
 

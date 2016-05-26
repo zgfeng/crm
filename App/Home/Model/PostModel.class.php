@@ -84,4 +84,10 @@ class PostModel extends Model
         }
     }
 
+    //根据ID集合删除记录、
+    public function remove($ids)
+    {
+        return $this->delete($ids);
+    }
+
 }

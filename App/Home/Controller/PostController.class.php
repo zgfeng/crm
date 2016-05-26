@@ -66,4 +66,16 @@ class PostController extends Controller
         }
     }
 
+    //根据ID集合删除记录
+    public function remove()
+    {
+        if (IS_AJAX)
+        {
+            $Post = D('Post');
+            echo $Post->remove(I('post.id'));
+        } else {
+            $this->error('非法操作！');
+        }
+    }
+
 }

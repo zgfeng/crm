@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-05-24 15:11:02
+Date: 2016-05-26 13:02:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -69,7 +69,7 @@ CREATE TABLE `crm_post` (
   `name` char(10) NOT NULL,
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crm_post
@@ -77,6 +77,10 @@ CREATE TABLE `crm_post` (
 INSERT INTO crm_post VALUES ('1', '总经理', '2016-05-16 12:46:23');
 INSERT INTO crm_post VALUES ('2', '销售', '2016-05-18 12:48:23');
 INSERT INTO crm_post VALUES ('3', '财务', '2016-05-20 12:49:05');
+INSERT INTO crm_post VALUES ('4', '测试员', '2016-05-25 15:16:13');
+INSERT INTO crm_post VALUES ('5', 'PHP程序员', '2016-05-25 15:17:00');
+INSERT INTO crm_post VALUES ('6', 'JAVA程序员', '2016-05-26 08:49:37');
+INSERT INTO crm_post VALUES ('7', 'test', '2016-05-26 12:31:43');
 
 -- ----------------------------
 -- Table structure for `crm_test`
