@@ -2,11 +2,12 @@
  * Created by zgfeng on 2016/5/24.
  */
 
-//初始化变量
+
 var post = $('#post'),
     postAdd = $('#post-add'),
     postAddName = $('#post-add-name'),
     postTool;
+
 
 //浏览器改变时触发
 $(window).resize(function () {
@@ -14,25 +15,24 @@ $(window).resize(function () {
 });
 
 
-//datagrid组件展示数据列表
+//表格数据列表
 post.datagrid({
-    url : ThinkPHP['MODULE'] + '/' + '/Post/getList',
+    url : ThinkPHP['MODULE'] + '/Post/getList',
     fit : true,
     fitColumns : true,
-    striped :   true,
     rownumbers : true,
     border : false,
-    toolbar : '#post-tool',
-    pagination : true,
-    pageSize :20,
-    pageList :[10,20,30,40,50],
-    pageNumber :1,
     sortName : 'create_time',
     sortOrder : 'DESC',
+    toolbar : '#post-tool',
+    pagination : true,
+    pageSize : 20,
+    pageList : [10, 20, 30, 40, 50],
+    pageNumber : 1,
     columns : [[
         {
             field : 'id',
-            title : '编号',
+            title : '自动编号',
             width : 100,
             checkbox : true
         },
@@ -44,63 +44,98 @@ post.datagrid({
         {
             field : 'create_time',
             title : '创建时间',
-            width : 100,
-            sortable : true
+            width : 100
         }
     ]]
 });
 
-//工具条操作
-postTool = {
-    add : function()
-    {
-        postAdd.dialog('open');
-    }
-};
 
 //新增面板
 postAdd.dialog({
-    width       : 400,
-    height      : 190,
-    title       : '新增职位',
-    iconCls     : 'icon-newadd',
-    modal       : true,
-    closed      : true,
+    title : '新增面板',
+    width: 400,
+    height: 190,
+    iconCls : 'icon-newadd',
+    closed: true,
+    modal : true,
     maximizable : true,
-    buttons     : [
+    buttons:[
         {
-            text    : '保存',
+            text : '保存',
+            size : 'large',
             iconCls : 'icon-accept',
-            size    : 'large',
             handler : function ()
             {
-                alert('');
+                if (postAdd.form('validate'))
+                {
+                    $.ajax({
+                        url : ThinkPHP['MODULE'] + '/Post/register',
+                        type : 'POST',
+                        data : {
+                            name : postAddName.val()
+                        },
+                        beforeSend : function ()
+                        {
+                            $.messager.progress({
+                                text : '正在处理中...'
+                            })
+                        },
+                        success : function (data)
+                        {
+                            $.messager.progress('close');
+                            if (data > 0)
+                            {
+                                $.messager.show({
+                                    title : '操作提示',
+                                    msg : '添加成功'
+                                });
+                                postAdd.dialog('close');
+                                post.datagrid('load');
+                            } else if (data == -1) {
+                                $.messager.alert('添加失败', '职位名称被占用！', 'warning', function () {
+                                    postAddName.textbox('textbox').select();
+                                });
+                            }
+                        }
+                    });
+                }
             }
-        },
-        {
-            text    : '取消',
-            size    : 'large',
+        },{
+            text : '取消',
+            size : 'large',
             iconCls : 'icon-cross',
-            handler :function ()
+            handler : function ()
             {
                 postAdd.dialog('close');
             }
-        }
-    ],
-    onClose     : function ()
+        }],
+    onClose : function ()
     {
         postAdd.form('reset');
         postAdd.dialog('center');
     }
 });
 
-//新增名称
+
+
+//工具条操作
+postTool = {
+    add : function ()
+    {
+        postAdd.dialog('open');
+    }
+};
+
+
+/*表单字段区域*/
+
+//新增职位
 postAddName.textbox({
-    width           : 220,
-    height          : 32,
-    required        : true,
-    validType       : 'length[2,20]',
-    missingMessage  : '请输入职位名称',
-    invalidMessage  : '职位名称2-20位'
+    width : 220,
+    height : 32,
+    required : true,
+    validType : 'length[2,20]',
+    missingMessage : '请输入职位名称',
+    invalidMessage : '职位名称2-20位之间'
 });
 

@@ -12,7 +12,7 @@ namespace Think;
 /**
  * ThinkPHP API模式控制器基类
  */
-abstract class Controller {
+abstract class ControllerApp {
 
    /**
      * 架构函数

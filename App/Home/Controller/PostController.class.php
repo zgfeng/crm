@@ -11,21 +11,35 @@ use Think\Controller;
 
 class PostController extends Controller
 {
-    //加载职位部门模板
-    public  function index()
+
+    //加载主页面
+    public function index()
     {
         $this->display();
     }
 
-    //获取职位部门列表
+    //加载数据列表
     public function getList()
     {
         if (IS_AJAX)
         {
             $Post = D('Post');
-            $this->ajaxReturn($Post->getList(I('post.page'),I('post.rows'),I('post.order'),I('post.sort')));
+            $this->ajaxReturn($Post->getList(I('post.page'), I('post.rows'), I('post.sort'), I('post.order')));
         } else {
             $this->error('非法操作！');
         }
     }
+
+    //新增操作
+    public function register()
+    {
+        if (IS_AJAX)
+        {
+            $Post = D('Post');
+            echo $Post->register(I('post.name'));
+        } else {
+            $this->error('非法操作！');
+        }
+    }
+
 }
