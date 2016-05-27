@@ -7,10 +7,16 @@
  */
 namespace Home\Controller;
 
+use Home\Model\PostModel;
 use Think\Controller;
 
 class PostController extends Controller
 {
+    //实例化模型
+    private function obj()
+    {
+        return new PostModel('post');
+    }
 
     //加载主页面
     public function index()
@@ -23,8 +29,8 @@ class PostController extends Controller
     {
         if (IS_AJAX)
         {
-            $Post = D('Post');
-            $this->ajaxReturn($Post->getList(I('post.page'), I('post.rows'), I('post.sort'), I('post.order')));
+            //$Post = new PostModel('Post');
+            $this->ajaxReturn($this->obj()->getList(I('post.page'), I('post.rows'), I('post.sort'), I('post.order')));
         } else {
             $this->error('非法操作！');
         }
@@ -35,8 +41,8 @@ class PostController extends Controller
     {
         if (IS_AJAX)
         {
-            $Post = D('Post');
-            echo $Post->register(I('post.name'));
+            //$Post = D('Post');
+            echo $this->obj()->register(I('post.name'));
         } else {
             $this->error('非法操作！');
         }
@@ -47,8 +53,8 @@ class PostController extends Controller
     {
         if (IS_AJAX)
         {
-            $Post = D('Post');
-            $this->ajaxReturn($Post->getOne(I('post.id')));
+            //$Post = D('Post');
+            $this->ajaxReturn($this->obj()->getOne(I('post.id')));
         } else {
             $this->error('非法操作！');
         }
@@ -59,8 +65,8 @@ class PostController extends Controller
     {
         if (IS_AJAX)
         {
-            $Post = D('Post');
-            echo $Post->update(I('post.id'),I('post.name'));
+            //$Post = D('Post');
+            echo $this->obj()->update(I('post.id'),I('post.name'));
         } else {
             $this->error('非法操作！');
         }
@@ -71,8 +77,8 @@ class PostController extends Controller
     {
         if (IS_AJAX)
         {
-            $Post = D('Post');
-            echo $Post->remove(I('post.id'));
+            //$Post = D('Post');
+            echo $this->obj()->remove(I('post.id'));
         } else {
             $this->error('非法操作！');
         }

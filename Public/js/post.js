@@ -3,13 +3,19 @@
  */
 
 
-var post            = $('#post'),
-    postAdd         = $('#post-add'),
-    postEdit        = $('#post-edit'),
-    postAddName     = $('#post-add-name'),
-    postEditId      = $('#post-edit-id'),
-    postEditName    = $('#post-edit-name'),
+var post                = $('#post'),
+    postAdd             = $('#post-add'),
+    postEdit            = $('#post-edit'),
+    postAddName         = $('#post-add-name'),
+    postEditId          = $('#post-edit-id'),
+    postEditName        = $('#post-edit-name'),
+    postSearchKeywords  = $('#post-search-keywords'),
+    postSearchDateType  = $('#post-search-date-type'),
+    postSearchDateFrom  = $('#post-search-date-from'),
+    postSearchDateTo    = $('#post-search-date-to'),
     postName,
+    postDate,
+    toolOpt,
     postTool;
 
 
@@ -194,7 +200,7 @@ postEdit.dialog({
 
 
 //工具条操作
-postTool = {
+toolOpt = {
     add : function ()
     {
         postAdd.dialog('open');
@@ -257,7 +263,7 @@ postTool = {
                         {
                             $.messager.progress({
                                 text : '正在处理中...'
-                            })
+                            });
                             //post.datagrid('loading');
                         },
                         success     : function (data)
@@ -293,6 +299,50 @@ postTool = {
     }
 };
 
+/*查询字段区域*/
+postSearchKeywords.textbox({
+    width : 150,
+    prompt: '职位'
+});
+
+//时间类型旋转
+postSearchDateType.combobox({
+    width : 100,
+    editable : false,
+    prompt : '时间类型',
+    data : [{
+        id : 'create_time',
+        text : '创建时间'
+    }],
+    valueField : 'id',
+    textField : 'text',
+    required : true,
+    novalidate : true,
+    panelHeight : 'auto',
+    tipPosition : 'left',
+    missingMessage : '请选择时间类型'
+});
+
+//查询时间对象
+postDate = {
+    width : 100,
+    editable : false,
+    onSelect : function ()
+    {
+        if(postSearchDateType.combobox('enableValidation').combobox('isValid')==false)
+        {
+            postSearchDateType.combobox('showPanel');
+        }
+    }
+};
+
+//起始时间
+postDate.prompt = '起始时间';
+postSearchDateFrom.datebox(postDate);
+
+//截止时间
+postDate.prompt = '截止时间';
+postSearchDateTo.datebox(postDate);
 
 /*表单字段区域*/
 

@@ -81,6 +81,10 @@ a.tabs-inner {
     font-size: 14px !important;
     color: #333;
 }
+.messager-body {
+    color: #666;
+    font-size: 14px;
+}
 .form-label {
     padding: 5px 0;
     font-size: 14px;
@@ -108,4 +112,13 @@ a.tabs-inner {
     text-align: left;
     font-size:14px;
     color: #666;
+}
+.tool-opt {
+    margin: 0 0 5px 0;
+}
+.tool-search {
+    padding: 0 0 0 7px;
+}
+.combobox-item,.combo input {
+    cursor: pointer;
 }

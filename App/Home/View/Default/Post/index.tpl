@@ -3,12 +3,21 @@
 
 <!--工具条-->
 <form id="post-tool" style="padding: 5px;">
-    <div>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newadd" onclick="postTool.add()">新增</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newedit" onclick="postTool.edit()">修改</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="postTool.remove()">删除</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-reload" onclick="postTool.reload()">刷新表</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-redo" onclick="postTool.redo()">取消选项</a>
+    <div id="tool-opt">
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newadd" onclick="tool-opt.add()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newedit" onclick="tool-opt.edit()">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="tool-opt.remove()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-reload" onclick="tool-opt.reload()">刷新表</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-redo" onclick="tool-opt.redo()">取消选项</a>
+    </div>
+    <div id="tool-search">
+        <label for="post-search-keywords">关键字：</label>
+        <input type="text" id="post-search-keywords">
+        <input type="text" id="post-search-date-type">
+        <input type="text" id="post-search-date-from">
+        <label for="post-search-date-to">-</label>
+        <input type="text" id="post-search-date-to">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="postOpt.search()">查询</a>
     </div>
 </form>
 
