@@ -13,10 +13,10 @@ var post                = $('#post'),
     postSearchDateType  = $('#post-search-date-type'),
     postSearchDateFrom  = $('#post-search-date-from'),
     postSearchDateTo    = $('#post-search-date-to'),
-    postName,
+    postTool            = $('#post-tool'),
     postDate,
     toolOpt,
-    postTool;
+    postName;
 
 
 //浏览器改变时触发
@@ -54,7 +54,8 @@ post.datagrid({
         {
             field : 'create_time',
             title : '创建时间',
-            width : 100
+            width : 100,
+            sortable : true,
         }
     ]]
 });
@@ -296,6 +297,30 @@ toolOpt = {
     redo    : function ()
     {
         post.datagrid('unselectAll');
+    },
+    search : function ()
+    {
+        if (postTool.form('validate'))
+        {
+            post.datagrid('load',{
+                keywords : postSearchKeywords.textbox('getValue'),
+                dateType : postSearchDateType.combobox('getValue'),
+                dateFrom : postSearchDateFrom.datebox('getValue'),
+                dateTo   : postSearchDateTo.datebox('getValue')
+            });
+        }
+    },
+    reset : function ()
+    {
+        postSearchKeywords.textbox('clear');
+        postSearchDateType.combobox('clear').combobox('disableValidation');
+        postSearchDateFrom.datebox('clear');
+        postSearchDateTo.datebox('clear');
+        this.search();
+        post.datagrid('sort',{
+            sortName : 'create_time',
+            sortOrder : 'DESC'
+        });
     }
 };
 

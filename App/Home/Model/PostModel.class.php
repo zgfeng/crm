@@ -22,9 +22,26 @@ class PostModel extends Model
     );
 
     //获取数据列表
-    public function getList($page, $rows, $sort, $order)
+    public function getList($page, $rows, $sort, $order,$keywords,$dateType,$dateFrom,$dateTo)
     {
+        $map=array();
+
+        if ($keywords)
+        {
+            $map['name'] = array('like','%'.$keywords.'%');
+        }
+
+        if ($dateFrom && $dateTo)
+        {
+            $map["$dateType"] = array(array('egt',$dateFrom),array('elt',$dateTo));
+        } elseif($dateFrom) {
+            $map["$dateType"] = array('egt',$dateFrom);
+        } elseif($dateTo){
+            $map["$dateType"] = array('elt',$dateTo);
+        }
+
         $object = $this->field('id,name,create_time')
+            ->where($map)
             ->order(array($sort=>$order))
             ->limit(($rows * ($page - 1)), $rows)
             ->select();

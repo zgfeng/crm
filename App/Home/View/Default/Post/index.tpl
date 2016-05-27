@@ -4,11 +4,12 @@
 <!--工具条-->
 <form id="post-tool" style="padding: 5px;">
     <div id="tool-opt">
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newadd" onclick="tool-opt.add()">新增</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newedit" onclick="tool-opt.edit()">修改</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="tool-opt.remove()">删除</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-reload" onclick="tool-opt.reload()">刷新表</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-redo" onclick="tool-opt.redo()">取消选项</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newadd" onclick="toolOpt.add()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-newedit" onclick="toolOpt.edit()">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="toolOpt.remove()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-reload" onclick="toolOpt.reload()">刷新表</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-redo" onclick="toolOpt.redo()">取消选项</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-undo" onclick="toolOpt.reset()">重置查询</a>
     </div>
     <div id="tool-search">
         <label for="post-search-keywords">关键字：</label>
@@ -17,7 +18,7 @@
         <input type="text" id="post-search-date-from">
         <label for="post-search-date-to">-</label>
         <input type="text" id="post-search-date-to">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="postOpt.search()">查询</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="toolOpt.search()">查询</a>
     </div>
 </form>
 

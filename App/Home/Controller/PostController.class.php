@@ -30,7 +30,7 @@ class PostController extends Controller
         if (IS_AJAX)
         {
             //$Post = new PostModel('Post');
-            $this->ajaxReturn($this->obj()->getList(I('post.page'), I('post.rows'), I('post.sort'), I('post.order')));
+            $this->ajaxReturn($this->obj()->getList(I('post.page'), I('post.rows'), I('post.sort'), I('post.order'),I('post.keywords'), I('post.dateType'), I('post.dateFrom'), I('post.dateTo')));
         } else {
             $this->error('非法操作！');
         }
