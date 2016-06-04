@@ -113,6 +113,14 @@ a.tabs-inner {
     font-size:14px;
     color: #666;
 }
+.form-table .link {
+    font-size: 14px;
+    color: #06f;
+    position: relative;
+    top: 2px;
+    left: 5px;
+    cursor: pointer;
+}
 .tool-opt {
     margin: 0 0 5px 0;
 }
