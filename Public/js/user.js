@@ -114,7 +114,7 @@ user.datagrid({
             plain : true
         });
         $('.user-state-2').linkbutton({
-            iconCls : 'icon-lock',
+            iconCls : 'icon-newlock',
             plain : true
         });
 
