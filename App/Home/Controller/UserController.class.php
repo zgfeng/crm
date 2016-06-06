@@ -37,7 +37,7 @@ class UserController extends Controller
         if (IS_AJAX)
         {
             $User = D('User');
-            echo $User->register(I('post.accounts'), I('post.password'));
+            echo $User->register(I('post.accounts'), I('post.password'), I('post.notpassword'),  I('post.not'), I('post.state'));
         } else {
             $this->error('非法操作！');
         }
@@ -62,6 +62,18 @@ class UserController extends Controller
         {
             $User = D('User');
             echo $User->update(I('post.id'), I('post.password'), I('post.state'));
+        } else {
+            $this->error('非法操作！');
+        }
+    }
+
+    //根据ID修改帐号密码
+    public function editPassword()
+    {
+        if (IS_AJAX)
+        {
+            $User = D('User');
+            echo $User->editPassword(I('post.id'), I('post.password'), I('post.notpassword'));
         } else {
             $this->error('非法操作！');
         }

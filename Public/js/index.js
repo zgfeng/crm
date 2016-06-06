@@ -1,6 +1,14 @@
 /**
  * Created by zgfeng on 2016/5/23.
  */
+var btnEdit             =       $('#btn-edit'),
+    btnLogout           =       $('#btn-logout'),
+    edit                =       $('#edit'),
+    editId              =       $('#edit-id'),
+    editAccounts        =       $('#edit-accounts'),
+    editPassword        =       $('#edit-password'),
+    editNotPassword     =       $('#edit-notpassword');
+
 //内容切换选项卡
 $('#tabs').tabs({
     fit: true,
@@ -86,5 +94,134 @@ $('#tree').tree({
                 });
             }
         }
+    }
+});
+
+//登出系统
+btnLogout.click(function () {
+    $.messager.confirm('操作提醒', '是否退出系统！', function (flag) {
+        if (flag)
+        {
+            $.messager.progress({
+                text : '登出系统中...',
+            });
+
+            location.href = ThinkPHP['MODULE'] + '/Login/logout';
+        }
+    });
+});
+
+//点击弹出修改密码面板
+btnEdit.click(function () {
+    edit.dialog('open');
+});
+
+$(function () {
+    //修改密码面板
+    edit.dialog({
+        title : '修改密码',
+        width: 400,
+        height: 280,
+        iconCls : 'icon-edit',
+        closed: true,
+        modal : true,
+        maximizable : true,
+        buttons:[
+            {
+                text : '保存',
+                size : 'large',
+                iconCls : 'icon-accept',
+                handler : function ()
+                {
+                    if (edit.form('validate'))
+                    {
+                        $.ajax({
+                            url : ThinkPHP['MODULE'] + '/User/editPassword',
+                            type : 'POST',
+                            data : {
+                                id : editId.val(),
+                                password : editPassword.val(),
+                                notPassword : editNotPassword.val()
+                            },
+                            beforeSend : function ()
+                            {
+                                $.messager.progress({
+                                    text : '正在尝试保存...'
+                                })
+                            },
+                            success : function (data)
+                            {
+                                $.messager.progress('close');
+                                if (data > 0)
+                                {
+                                    $.messager.show({
+                                        title : '操作提示',
+                                        msg : '修改密码成功'
+                                    });
+                                    edit.form('reset');
+                                    edit.dialog('close');
+                                    $.messager.alert('操作提醒', '密码修改成功，请重新登录！', 'info', function () {
+                                        location.href = ThinkPHP['MODULE'] + '/Login/logout';
+                                    });
+                                } else {
+                                    $.messager.alert('修改密码失败', '密码没有被被修改！', 'warning', function () {
+                                        editPassword.textbox('textbox').select();
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            },{
+                text : '取消',
+                size : 'large',
+                iconCls : 'icon-cross',
+                handler : function ()
+                {
+                    edit.dialog('close');
+                }
+            }],
+        onClose : function ()
+        {
+            edit.form('reset');
+            edit.dialog('center');
+        }
+    });
+
+    //帐号
+    editAccounts.textbox({
+        width : 220,
+        height : 32,
+        disabled : true
+    });
+
+    //密码
+    editPassword.textbox({
+        width : 220,
+        height : 32,
+        required : true,
+        validType : 'length[6,30]',
+        missingMessage : '请修改帐号密码',
+        invalidMessage : '帐号密码6-30位'
+    });
+
+    //确认密码
+    editNotPassword.textbox({
+        width : 220,
+        height : 32,
+        required : true,
+        validType : 'equals["#edit-password"]',
+        missingMessage : '请确认帐号密码',
+        invalidMessage : '确认密码和密码不一致'
+    });
+});
+
+//检查一个字段是否和另一个字段相同
+$.extend($.fn.validatebox.defaults.rules, {
+    equals: {
+        validator: function(value,param){
+            return value == $(param[0]).val();
+        },
+        message: '密码和密码确认必须一致'
     }
 });

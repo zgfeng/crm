@@ -21,6 +21,14 @@ class UserModel extends Model
 
         //修改密码6-30，可以空
         array('password', '6,30', '密码长度不合法', self::VALUE_VALIDATE, 'length', self::MODEL_INSERT),
+
+        //确认密码是否与密码相同
+        array('notpassword', 'password', '确认密码不正确', self::EXISTS_VALIDATE, 'confirm', self::MODEL_BOTH),
+
+        //登录验证：帐号2-20位之间
+        array('accounts', '2,20', '登录帐号长度不合法', self::EXISTS_VALIDATE, 'length', 4),
+        //登录验证：密码6-30位之间
+        array('password', '6,30', '登录密码长度不合法', self::EXISTS_VALIDATE, 'length', 4),
     );
 
     //获取数据列表
@@ -62,14 +70,21 @@ class UserModel extends Model
     }
 
     //新增操作
-    public function register($accounts, $password, $state = '')
+    public function register($accounts, $password, $notpassword = '', $not = 0, $state = '')
     {
         $addData = array(
-            'accounts'=>$accounts,
-            'password'=>$password,
-            'state'=>$state ? $state : '正常',
-            'create_time'=>getTime()
+            'accounts'      =>  $accounts,
+            'password'      =>  $password,
+            'notpassword'   =>  $notpassword,
+            'state'         =>  $state ? $state : '正常',
+            'create_time'   =>  getTime()
         );
+
+        //没有确认密码，直接unset不验证
+        if ($not == 0)
+        {
+            unset($addData['notpassword']);
+        }
 
         if ($this->create($addData))
         {
@@ -114,6 +129,25 @@ class UserModel extends Model
         }
     }
 
+    //根据ID修改帐号密码
+    public function editPassword($id, $password, $notpassword)
+    {
+        $updateData = array(
+            'id'            =>  $id,
+            'password'      =>  $password,
+            'notpassword'   =>  $notpassword
+        );
+
+        if ($this->create($updateData))
+        {
+            $updateData['password'] = sha1($password);
+            $id = $this->save($updateData);
+            return $id ? $id : 0;
+        } else {
+            return $this->getError();
+        }
+    }
+
     //根据ID集合删除记录
     public function remove($ids)
     {
@@ -130,6 +164,60 @@ class UserModel extends Model
         );
 
         return $this->save($StateData);
+    }
+
+    //验证帐号密码
+    public function checkUser($accounts, $password)
+    {
+        $CheckData = array(
+            'accounts'  =>  $accounts,
+            'password'  =>  $password
+        );
+
+        if ($this->create($CheckData, 4))
+        {
+            $map = array(
+                'accounts'  =>  $accounts,
+                'password'  =>  sha1($password)
+            );
+
+            $object = $this ->field('id,accounts,state')
+                ->where($map)
+                ->find();
+
+            if ($object)
+            {
+
+                //冻结帐号返回-1
+                if ($object['state'] == '冻结') return -1;
+
+                //登录成功，写入session
+                session('admin', array(
+                    'id'        =>  $object['id'],
+                    'accounts'  =>  $object['accounts']
+                ));
+
+                //更新登录次数
+                $LoginUpdate = array(
+                    'id'                =>  $object['id'],
+                    'last_login_time'   =>  getTime(),
+                    'last_login_ip'     =>  get_client_ip(),
+                    'login_count'       =>  array('exp', 'login_count+1')
+                );
+
+                //保存更新
+                $this->save($LoginUpdate);
+
+                //返回登录的ID
+                return $object['id'];
+
+            } else {
+                //验证失败，返回0
+                return 0;
+            }
+        } else {
+            return $this->getError();
+        }
     }
 
 }

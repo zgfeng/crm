@@ -19,8 +19,42 @@
         <img src="__IMG__/logo.png" alt="CRM客户关系管理系统">
     </div>
     <div class="info">
-        <a href=""style="color:#fff">退出</a>
+        您好，{:session('admin')['accounts']}！
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-edit" iconCls="icon-edit">修改密码</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-logout" iconCls="icon-remove">登录系统</a>
     </div>
+    <!--修改密码-->
+    <form id="edit" class="easyui-dialog">
+        <input type="hidden" id="edit-id" value="{:session('admin')['id']}">
+        <table class="form-table" style="max-width: 420px;">
+            <tbody>
+            <tr>
+                <td class="label">
+                    <label for="edit-accounts" class="form-label">帐号：</label>
+                </td>
+                <td class="input">
+                    <input type="text" id="edit-accounts" class="easyui-textbox" value="{:session('admin')['accounts']}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="edit-password" class="form-label">密码：</label>
+                </td>
+                <td class="input">
+                    <input type="password" id="edit-password" class="easyui-textbox">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="edit-notpassword" class="form-label">确认密码：</label>
+                </td>
+                <td class="input">
+                    <input type="password" id="edit-notpassword" class="easyui-textbox">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
 </div>
 <!--软件导航-->
 <div data-options="region:'west',title:'导航',split:true,border:true,iconCls:'icon-world'" class="layout-west">
