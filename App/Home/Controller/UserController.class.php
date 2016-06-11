@@ -6,17 +6,9 @@
  * Time: 15:47
  */
 namespace Home\Controller;
-use Think\Controller;
 
-class UserController extends Controller
+class UserController extends HomeController
 {
-
-    //加载主页面
-    public function index()
-    {
-        $this->display();
-    }
-
     //加载数据列表
     public function getList()
     {

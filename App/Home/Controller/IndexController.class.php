@@ -1,13 +1,8 @@
 <?php
 namespace Home\Controller;
-use Think\Controller;
-class IndexController extends Controller
-{
-    public function index()
-    {
-        $this->show();
-    }
 
+class IndexController extends HomeController
+{
     //加载菜单导航
     public function getTree()
     {

@@ -14,7 +14,11 @@ class LoginController extends Controller
     //登录页
     public function index()
     {
-        $this->display();
+        if (session('admin')){
+            $this->redirect('Index/index');
+        } else {
+            $this->display();
+        }
     }
 
     //验证帐号密码

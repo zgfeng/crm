@@ -8,20 +8,13 @@
 namespace Home\Controller;
 
 use Home\Model\PostModel;
-use Think\Controller;
 
-class PostController extends Controller
+class PostController extends HomeController
 {
     //实例化模型
     private function obj()
     {
         return new PostModel('post');
-    }
-
-    //加载主页面
-    public function index()
-    {
-        $this->display();
     }
 
     //加载数据列表

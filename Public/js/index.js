@@ -85,6 +85,17 @@ $('#tree').tree({
                 //页面已存在，就实现选中
                 tabs.tabs('select',node.text)
             } else {
+                switch (node.text)
+                {
+                    case '登录帐号' :
+                        $('#user-add').dialog('destroy');
+                        $('#user-edit').dialog('destroy');
+                        break;
+                    case '职位部门' :
+                        $('#post-add').dialog('destroy');
+                        $('#post-edit').dialog('destroy');
+                        break;
+                }
                 //页面不存在，就给选项卡添加标签
                 tabs.tabs('add',{
                     title : node.text,
